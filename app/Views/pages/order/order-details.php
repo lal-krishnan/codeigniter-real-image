@@ -137,7 +137,29 @@
 </main>
 <script>
     function printInvoice() {
-      window.print();
+        $.ajax({
+            url: "<?= site_url('order/ajax/save-discount-price/'.$order['id']) ?>",
+            type: "POST",
+            dataType: "json",
+            data: {
+                discount: document.getElementById("discount").value,
+                advance: document.getElementById("advance").value,
+                total_amount: document.getElementById("total_amount").value
+            },
+            success: function (response) {
+                if (response.success) {
+                    alert("Discount and price information saved successfully.");
+                } else {
+                    alert("Failed to save discount and price information.");
+                }
+                window.print();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error saving discount and price information:", error);
+                alert("An error occurred while saving the data.");
+            }
+        });
+     
     }
     function changeAssign(id) {
         var selectedValue = document.getElementById("assigned_user"+id).value;
