@@ -10,6 +10,7 @@ use App\Models\MaterialModel;
 use App\Models\FrameModel;
 use App\Models\SizeModel;
 use App\Models\TypeModel;
+use App\Models\OrderItemsModel;
 class HomeController extends BaseController
 {
     // public function index()
@@ -47,7 +48,44 @@ class HomeController extends BaseController
                 ->where('assigned_to', $userId)
                 ->where('status', 'Completed')
                 ->findAll();
-        return view('pages/home',compact('pendingOrders','inProgressOrders','completedOrders'));
+
+        $userModel = new UserModel();
+        $userList = $userModel->findAll();
+
+        $orderItemsModel = new OrderItemsModel();
+        $orderItems = $orderItemsModel->select('order_items.*, 
+        materials.material as material_name, 
+        frames.name as frame_name, 
+        sizes.title as size_name, 
+        types.title as type_name,
+        orders.serial as order_serial,
+        orders.id as order_id,
+        orders.status as order_status,
+        customers.name as customer_name,
+        orders.created_at as order_created_at')                
+                ->join('materials', 'order_items.material_id = materials.id', 'left')
+                ->join('frames', 'order_items.frame_id = frames.id', 'left')
+                ->join('sizes', 'order_items.size_id = sizes.id', 'left')
+                ->join('types', 'order_items.type_id = types.id', 'left')
+                ->join('orders', 'order_items.order_id = orders.id', 'left')
+                ->join('customers', 'orders.customer_id = customers.id', 'left')
+                ->where('order_items.assigned_to', $userId)
+                ->findAll();
+                $groupedOrderItems = [];
+                foreach ($orderItems as $item) {
+                    $orderId = $item['order_id'];
+                    if (!isset($groupedOrderItems[$orderId])) {
+                        $groupedOrderItems[$orderId] = [
+                            'order_serial' => $item['order_serial'],
+                            'order_status' => $item['order_status'],
+                            'customer_name' => $item['customer_name'],
+                            'order_created_at' => $item['order_created_at'],
+                            'items' => [],
+                        ];
+                    }
+                    $groupedOrderItems[$orderId]['items'][] = $item;
+                }
+        return view('pages/home',compact('pendingOrders','inProgressOrders','completedOrders','orderItems','groupedOrderItems','userList'));
     }
     public function orderList()
     {

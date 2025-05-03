@@ -6,6 +6,11 @@
     <title><?= isset($title) ? $title : 'CodeIgniter Application' ?></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .inputheight{
+            height: 40px;
+            
+        }        </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
     <header class="bg-blue-600 text-white p-4">

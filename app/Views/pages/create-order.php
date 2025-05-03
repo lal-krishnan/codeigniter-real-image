@@ -17,7 +17,7 @@
                     <div class="mb-4 items-center">
                         <label for="mobile_number" class="block text-gray-700 font-bold mb-2 mr-2">Mobile Number</label>
                         <div class="flex">
-                            <input type="text" name="mobile_number" id="mobile_number" value="<?= old('mobile_number') ?>" required
+                            <input type="text" onkeyup="checkCustomer()" name="mobile_number" id="mobile_number" value="<?= old('mobile_number') ?>" required
                                 class="flex-grow px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <button type="button" onclick="checkCustomer()" 
                                 class="ml-2 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">

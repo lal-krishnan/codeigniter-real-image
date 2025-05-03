@@ -1,11 +1,9 @@
 <?=
     view('header/header');
 ?>
-<?php
-// Check if orders are available
-if (!empty($orders) && is_array($orders)) : ?>
+
     <h1 class="text-2xl font-bold mb-4">Order List</h1>
-    <a href="<?= site_url('orders/create') ?>" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4 inline-block">Create New Order</a>
+    <a href="<?= site_url('orders/new') ?>" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4 inline-block">Create New Order</a>
     <div class="overflow-x-auto">
         <table class="min-w-full border-collapse border border-gray-200">
             <thead class="bg-gray-100">
@@ -19,6 +17,9 @@ if (!empty($orders) && is_array($orders)) : ?>
                 </tr>
             </thead>
             <tbody>
+            <?php
+// Check if orders are available
+if (!empty($orders) && is_array($orders)) : ?>
                 <?php foreach ($orders as $index => $order) : ?>
                     <tr class="hover:bg-gray-50">
                         <td class="border border-gray-300 px-4 py-2"><?= $index + 1; ?></td>
@@ -33,9 +34,10 @@ if (!empty($orders) && is_array($orders)) : ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
+                <?php else : ?>
+    <p class="text-gray-500">No orders found.</p>
+<?php endif; ?>
             </tbody>
         </table>
     </div>
-<?php else : ?>
-    <p class="text-gray-500">No orders found.</p>
-<?php endif; ?>
+

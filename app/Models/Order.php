@@ -26,7 +26,8 @@ class Order extends Model
         'description',
         'title',
         'completion_date',
-        'serial'
+        'serial',
+        'quantity'
 
     ]; // Fields that can be inserted/updated
 

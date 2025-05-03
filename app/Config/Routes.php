@@ -18,13 +18,19 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/orders/delete/(:num)', 'OrderController::deleteOrder/$1');
     $routes->get('/orders/create', 'OrderController::create');
     $routes->post('/orders/create', 'OrderController::submitOrder');
-
+    $routes->get('/orders/new', 'OrderController::index');
     
     $routes->post('/orders/update-workflow/(:num)', 'OrderController::updateWorkFlow/$1');
 
     
     $routes->get('/orders/create', 'OrderController::create');
-
+    
+    $routes->post('/orders/line-create', 'OrderController::submitOrderLines');
+    $routes->get('/order/ajax/line-list', 'OrderController::loadLineHTML');
+    
+     $routes->post('order/ajax/detatils-line-list/(:num)', 'OrderController::loadDetailsLineHTML/$1');
+     $routes->post('order-item/updateStatus', 'OrderController::updateOrderItemStatus');
+     
     $routes->post('/customers/get-user-by-mobile', 'CustomerController::getUserByMobile');
     $routes->get('/customers/get-user-by-mobile', 'CustomerController::getUserByMobile');
     
