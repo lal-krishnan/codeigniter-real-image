@@ -1,7 +1,8 @@
 <?=
     view('header/header');
 ?>
-    <h1>Create a New Order</h1>
+<div class="w-full">
+    <h1  class="text-lg font-semibold mb-4">Create a New Order</h1>
     <?= \Config\Services::validation()->listErrors(); ?>
     <div class=" -mx-4 bg-white p-6 rounded-lg shadow-md">
     <form id="createOrderForm" class="flex flex-wrap" method="POST" action="<?= site_url('orders/create') ?>">
@@ -12,7 +13,6 @@
                 <?= csrf_field() ?>
                 <section>
                     <h2 class="text-lg font-semibold mb-4">Customer Information</h2>
-                    <p class="text-gray-600 mb-2">Please enter the customer's mobile number to fetch their details.</p>
                     <input type="hidden" name="customer_id" id="customer_id" value="<?= old('customer_id') ?>">
                     <div class="mb-4 items-center">
                         <label for="mobile_number" class="block text-gray-700 font-bold mb-2 mr-2">Mobile Number</label>
@@ -164,7 +164,7 @@
         </div>
         </form>
     </div>
-
+                        </div>
     <script>
         $(document).ready(function() {
             // $('#submitOrderForm').click(function() {
@@ -203,7 +203,9 @@
                                 $('#email_address').val(customer.email).attr('readonly', true); 
                                 $('#address').val(customer.address).attr('readonly', true); 
                                 $('#customer_id').val(customer.id); 
-                                
+                                $("#customerBtn").hide();
+                                $("#customerBtn").addClass('hidden');
+                              //  alert($("#customerBtn").text())
                             } else {
                                 alert('No customer found with this mobile number.');
                             }

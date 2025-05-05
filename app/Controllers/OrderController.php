@@ -146,7 +146,7 @@ class OrderController extends BaseController
     // $orderDetails['type'] = $typeModel->find($orderDetails['type_id']);
     $is_agennt=true;
     // To-do
-    $priceshow=false;
+    $priceshow=true;
     $orderDetails['items'] = $orderItemsModel
         ->select('order_items.*, materials.material as material_name,
          types.title as type_name, 
@@ -231,7 +231,7 @@ public function loadDetailsLineHTML($order_id)
         $orderModel= new Order();
         $orderDetails = $this->getOrderDetails($order_id);
         // To-do
-        $priceshow=false;
+        $priceshow=true;
         $id= $this->request->getPost('id');
         
         if($id){
@@ -402,5 +402,25 @@ public function loadDetailsLineHTML($order_id)
             'assigned_to' => $assignTo,
         ]);
         return $this->response->setJSON(['status' => 'success']);
+    }
+    public function invoicePdf($id)
+    {
+        helper('dompdf');
+        $orderDetails = $this->getOrderDetails($id);
+        $order = new Order();
+        $orderData = $order->find($id);
+        $customerModel = new CustomerModel();
+        $orderData['customer'] = $customerModel->find($orderData['customer_id']);
+        $html= view('pages/order/invoicePdf', [
+            'order' => $orderData,
+            'orderLine'=>$orderDetails
+        ]);
+       // return $html;
+    //    echo $html;
+    //    die;
+        $filename = 'invoice_'.$id.'.pdf';
+        $stream = TRUE;
+        $pdf =  pdf_create($html, $filename, $stream);
+      //  pdf_create($html, $filename='', $stream=TRUE) 
     }
 }

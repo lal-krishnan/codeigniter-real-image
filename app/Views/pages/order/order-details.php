@@ -115,7 +115,7 @@
                     <input type="hidden" name="status" value="Completed" />
                     <button href="<?= site_url(" /orders/update-workflow/".$order['id']) ?>" class="bg-green-500 mt-4
                         text-white
-                        px-4 py-2 rounded-md hover:bg-blue-600 inline-block" >Complete Order
+                        px-4 py-2 rounded-md hover:bg-blue-600 inline-block" >Complete Order and Move To Billing
                     </button>
                     <input type="hidden" name="workflow_id" value="<?= $order['workflow_id'] ?>" />
 
@@ -128,8 +128,9 @@
     <section class="text-center mt-4">
      
             <?php if ($order['status'] === 'Completed') : ?>
-                <button onClick="printInvoice()" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Print Invoice</button>
-                    
+                <!-- <button onClick="printInvoice()" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Print Invoice</button> -->
+            <iframe id="printFrame" src="<?= site_url('order/invoicePdf/'.$order['id']) ?>" style="width:100%;border:1px solid;height:600px" name="printFrame" ></iframe>
+            
             <?php endif        ?>
 
                

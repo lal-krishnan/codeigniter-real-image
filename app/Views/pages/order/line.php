@@ -1,7 +1,7 @@
 <tr>                   
                     <td class="px-4 py-2 border border-gray-300">
-                        <input type="text" name="title[]" id="title" value="<?= old('title') ?>" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="text"  name="title[]" id="title" value="<?= old('title') ?>" 
+                            class="w-full title-class px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </td>               
                     <td class="px-4 py-2 border border-gray-300">
                         <input type="text" name="total_amount" id="total_amount" value="<?= old('total_amount') ?>" 

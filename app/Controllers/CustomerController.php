@@ -21,4 +21,21 @@ class CustomerController extends BaseController
             return $this->response->setJSON(['error' => 'Customer not found']);
         }
     }   
+    public function createCustomer()
+    {
+        $customerModel = new CustomerModel();
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'phone' => $this->request->getPost('phone'),
+            'whatsapp' => $this->request->getPost('whatsapp'),
+            'email' => $this->request->getPost('email'),
+            'address' => $this->request->getPost('address'),
+        ];
+        
+        if ($customerModel->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'customer_id' => $customerModel->insertID(), 'mobile' => $data['phone']]);  
+        } else {
+            return $this->response->setJSON(['error' => 'Failed to create customer']);
+        }
+    }
 }

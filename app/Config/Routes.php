@@ -30,9 +30,13 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     
      $routes->post('order/ajax/detatils-line-list/(:num)', 'OrderController::loadDetailsLineHTML/$1');
      $routes->post('order-item/updateStatus', 'OrderController::updateOrderItemStatus');
-     
+    
+    $routes->get('/order/invoicePdf/(:num)', 'OrderController::invoicePdf/$1');
+
     $routes->post('/customers/get-user-by-mobile', 'CustomerController::getUserByMobile');
     $routes->get('/customers/get-user-by-mobile', 'CustomerController::getUserByMobile');
+    $routes->post('/customers/create', 'CustomerController::createCustomer');
+    
     
 });
 
